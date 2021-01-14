@@ -24,11 +24,14 @@ impl<T, R> GenericId<T, R> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    #[test]
-    fn from_into_works() {
+    use test_case::test_case;
+
+    #[test_case(32=>32)]
+    #[test_case(55=>55)]
+    #[test_case("hoge"=>"hoge")]
+    fn from_into_works<T>(raw_id: T) -> T {
         struct Tag;
-        let id = GenericId::<Tag, usize>::from(32);
-        let r = id.raw_id();
-        assert!(r == 32);
+        let id = GenericId::<Tag, T>::from(raw_id);
+        id.raw_id()
     }
 }
