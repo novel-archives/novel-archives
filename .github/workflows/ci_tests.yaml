@@ -1,0 +1,16 @@
+name: CARRIAGE
+on: [push]
+jobs:
+  rust-lint:
+    runs-on: ubuntu-latest
+    container: rust
+    steps:
+      - uses: actions/checkout@v2
+      - run: RUSTFLAGS="-D warnings" cargo clippy -- -D clippy::all
+
+  rust-test:
+    runs-on: ubuntu-latest
+    container: rust
+    steps:
+      - uses: actions/checkout@v2
+      - run: cargo test
