@@ -14,4 +14,4 @@ chrono-tz = "0.5"
 rand="0.8"
 thiserror = "1.0"
 test-case = "1.1.0"
-
+phantom_newtype = "0.2.0"
