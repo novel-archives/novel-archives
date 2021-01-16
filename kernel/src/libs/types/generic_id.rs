@@ -1,12 +1,12 @@
 use std::marker::PhantomData;
 
 #[derive(Copy, Clone, Debug, Hash, PartialEq, Eq, Ord, PartialOrd)]
-pub struct GenericId<T, R> {
+pub struct GenericId<T, R: Clone> {
     raw_id: R,
     _phantom: PhantomData<T>,
 }
 
-impl<T, R> From<R> for GenericId<T, R> {
+impl<T, R: Clone> From<R> for GenericId<T, R> {
     fn from(raw_id: R) -> GenericId<T, R> {
         GenericId {
             raw_id,
@@ -15,9 +15,9 @@ impl<T, R> From<R> for GenericId<T, R> {
     }
 }
 
-impl<T, R> GenericId<T, R> {
-    pub fn raw_id(self) -> R {
-        self.raw_id
+impl<T, R: Clone> GenericId<T, R> {
+    pub fn raw_id(&self) -> R {
+        self.raw_id.clone()
     }
 }
 
@@ -29,7 +29,7 @@ mod tests {
     #[test_case(32=>32)]
     #[test_case(55=>55)]
     #[test_case("hoge"=>"hoge")]
-    fn from_into_works<T>(raw_id: T) -> T {
+    fn from_into_works<T: Clone>(raw_id: T) -> T {
         struct Tag;
         let id = GenericId::<Tag, T>::from(raw_id);
         id.raw_id()
