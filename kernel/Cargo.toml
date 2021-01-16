@@ -9,6 +9,9 @@ edition = "2018"
 [dependencies]
 harsh="0.2.1"
 anyhow="1.0"
+chrono="0.4"
+chrono-tz = "0.5"
+rand="0.8"
 thiserror = "1.0"
 test-case = "1.1.0"
 
