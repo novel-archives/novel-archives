@@ -1,5 +1,5 @@
-mod generic_id;
-mod id;
+mod error;
+pub mod generic_id;
+pub mod id;
 
-pub use generic_id::*;
-pub use id::*;
+pub use error::*;
