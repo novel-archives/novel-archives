@@ -1,5 +1,5 @@
+use general::prelude::*;
 use harsh::Harsh;
-use kernel::prelude::*;
 use std::sync::Mutex;
 pub struct IdGenerator {
     harsh: Harsh,

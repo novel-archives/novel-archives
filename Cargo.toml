@@ -1,6 +1,6 @@
 [workspace]
 
 members = [
-	"kernel",
-	"backend",
+	"kernel/backend",
+	"kernel/general",
 ]
