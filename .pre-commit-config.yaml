@@ -27,3 +27,9 @@ repos:
         language: script
         stages:
           - push
+      - id: cargo-test
+        name: cargo-test
+        entry: scripts/git/hooks/pre-push/cargo_test.sh
+        language: script
+        stages:
+          - push
