@@ -1,0 +1,10 @@
+{
+	"name": "novel-archives",
+	"scripts": {
+		"lint:prettier": "prettier --check",
+		"fix:prettier": "npm run lint:prettier -- --write"
+	},
+	"devDependencies": {
+		"prettier": "^2.2.1"
+	}
+}
