@@ -20,3 +20,10 @@ repos:
           - yaml
           - markdown
           - html
+
+      - id: cargo-clippy
+        name: cargo-clippy
+        entry: scripts/git/hooks/pre-push/cargo_lint.sh
+        language: script
+        stages:
+          - push
