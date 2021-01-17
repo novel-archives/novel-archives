@@ -36,7 +36,7 @@ mod tests {
     fn generate_works() {
         let id_gen = IdGenerator::new("salt");
         let id = id_gen.generate::<IdTag>().unwrap();
-        assert_ne!(id.get(), "");
+        assert_ne!(id.raw_id(), "");
     }
 
     #[test]
