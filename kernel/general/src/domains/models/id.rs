@@ -15,12 +15,13 @@ impl<T> PartialEq for Id<T> {
 impl<T> Id<T> {
     pub fn try_new(raw_id: RawId) -> Result<Self, Error> {
         if raw_id.is_empty() {
-            Err(Error::Empty)?;
+            Err(Error::Empty)
+        } else {
+            Ok(Self {
+                raw_id,
+                _phantom: PhantomData,
+            })
         }
-        Ok(Self {
-            raw_id,
-            _phantom: PhantomData,
-        })
     }
     pub fn raw_id(&self) -> &RawId {
         &self.raw_id
