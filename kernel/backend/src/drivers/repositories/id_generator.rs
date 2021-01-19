@@ -1,4 +1,3 @@
-use crate::domains::models::id_generator::*;
 use general::prelude::*;
 use harsh::Harsh;
 use std::sync::Mutex;
@@ -15,7 +14,7 @@ impl IdGenerator {
             prefix_key: Mutex::new(rand::random::<u32>() as u64),
         }
     }
-    pub fn generate<T>(&self) -> Result<Id<T>> {
+    pub fn generate<T>(&self) -> Result<Id<T>, Error> {
         let elapsed = times::now().timestamp_nanos() - Self::PROJECT_EPOCH;
         let mut prefix_key_mutex = self.prefix_key.lock().unwrap();
         let prefix_key = *prefix_key_mutex;
@@ -27,6 +26,9 @@ impl IdGenerator {
         Ok(Id::try_new(h).unwrap())
     }
 }
+
+#[derive(Error, PartialEq, Debug)]
+pub enum Error {}
 
 #[cfg(test)]
 mod tests {
