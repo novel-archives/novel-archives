@@ -1,3 +1,4 @@
+use crate::prelude::*;
 use std::marker::PhantomData;
 
 pub type RawId = String;
@@ -28,7 +29,7 @@ impl<T> Id<T> {
     }
 }
 
-#[derive(thiserror::Error, PartialEq, Debug)]
+#[derive(Error, PartialEq, Debug)]
 pub enum Error {
     #[error("IDが空文字列です")]
     Empty,
