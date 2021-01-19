@@ -1,3 +1,4 @@
+use crate::prelude::*;
 use std::marker::PhantomData;
 
 pub type RawId = String;
@@ -28,7 +29,7 @@ impl<T> Id<T> {
     }
 }
 
-#[derive(thiserror::Error, PartialEq, Debug)]
+#[derive(Error, Debug)]
 pub enum Error {
     #[error("IDが空文字列です")]
     Empty,
@@ -39,19 +40,25 @@ mod tests {
     use super::*;
     use test_case::test_case;
 
-    #[test_case("hoge".to_string()=>Ok("hoge".to_string()))]
-    #[test_case("".to_string()=>Err(Error::Empty))]
-    fn from_into_works(raw_id: RawId) -> Result<RawId, Error> {
+    #[test_case("hoge".to_string()=> matches Ok(_))]
+    #[test_case("".to_string()=>matches Err(Error::Empty))]
+    fn from_into_works(raw_id: RawId) -> Result<(), Error> {
         struct Tag;
-        let id = Id::<Tag>::try_new(raw_id)?;
-        Ok(id.raw_id().clone())
+        let id = Id::<Tag>::try_new(raw_id.clone())?;
+        assert_eq!(&raw_id, id.raw_id());
+        Ok(())
     }
 
-    #[test_case("hoge".to_string(),"fuga".to_string()=>Ok(false))]
+    #[test_case("hoge".to_string(),"fuga".to_string()=> matches Ok(false))]
     fn eq_works(a: RawId, b: RawId) -> Result<bool, Error> {
         struct Tag;
         let ida = Id::<Tag>::try_new(a)?;
         let idb = Id::<Tag>::try_new(b)?;
         Ok(ida == idb)
+    }
+
+    #[test_case(Error::Empty=>"IDが空文字列です".to_string();"empty_message")]
+    fn error_message(e: Error) -> String {
+        e.to_string()
     }
 }
