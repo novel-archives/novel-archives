@@ -1,4 +1,4 @@
-use general::prelude::*;
+use crate::prelude::*;
 use harsh::Harsh;
 use std::sync::Mutex;
 pub struct IdGenerator {
