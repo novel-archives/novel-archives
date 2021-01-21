@@ -1,5 +1,4 @@
 use crate::prelude::*;
-use std::convert::TryFrom;
 use std::marker::PhantomData;
 
 pub type RawId = String;
@@ -14,9 +13,8 @@ impl<T> PartialEq for Id<T> {
     }
 }
 
-impl<T> TryFrom<RawId> for Id<T> {
-    type Error = Error;
-    fn try_from(raw_id: RawId) -> Result<Self, Self::Error> {
+impl<T> Id<T> {
+    pub fn try_new(raw_id: RawId) -> Result<Self, Error> {
         if raw_id.is_empty() {
             Err(Error::Empty)
         } else {
@@ -26,9 +24,6 @@ impl<T> TryFrom<RawId> for Id<T> {
             })
         }
     }
-}
-
-impl<T> Id<T> {
     pub fn raw_id(&self) -> &RawId {
         &self.raw_id
     }
@@ -49,7 +44,7 @@ mod tests {
     #[test_case("".to_string()=>matches Err(Error::Empty))]
     fn from_into_works(raw_id: RawId) -> Result<(), Error> {
         struct Tag;
-        let id = Id::<Tag>::try_from(raw_id.clone())?;
+        let id = Id::<Tag>::try_new(raw_id.clone())?;
         assert_eq!(&raw_id, id.raw_id());
         Ok(())
     }
@@ -57,8 +52,8 @@ mod tests {
     #[test_case("hoge".to_string(),"fuga".to_string()=> matches Ok(false))]
     fn eq_works(a: RawId, b: RawId) -> Result<bool, Error> {
         struct Tag;
-        let ida = Id::<Tag>::try_from(a)?;
-        let idb = Id::<Tag>::try_from(b)?;
+        let ida = Id::<Tag>::try_new(a)?;
+        let idb = Id::<Tag>::try_new(b)?;
         Ok(ida == idb)
     }
 

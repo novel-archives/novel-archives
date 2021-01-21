@@ -1,6 +1,5 @@
 use general::prelude::*;
 use harsh::Harsh;
-use std::convert::TryFrom;
 use std::sync::Mutex;
 pub struct IdGenerator {
     harsh: Harsh,
@@ -24,7 +23,7 @@ impl IdGenerator {
         }
         *prefix_key_mutex += 1;
         let h = self.harsh.encode(&[prefix_key, elapsed as u64]);
-        Ok(Id::try_from(h).unwrap())
+        Ok(Id::try_new(h).unwrap())
     }
 }
 
