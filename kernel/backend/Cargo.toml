@@ -10,6 +10,8 @@ edition = "2018"
 harsh="0.2.1"
 general = { path = "../general"}
 rand="0.8"
+xid="0.1.1"
+
 
 [dev-dependencies]
 test-case = "1.1.0"
