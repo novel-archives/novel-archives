@@ -26,8 +26,8 @@ impl IdGenerator {
             SINGLETON
                 .get_or_insert_with(|| {
                     Arc::new(Mutex::new(SnowflakeIdGenerator::new(
-                        rand::random(),
-                        rand::random(),
+                        rand::random::<i32>() & 0b11111,
+                        rand::random::<i32>() & 0b11111,
                     )))
                 })
                 .clone()
