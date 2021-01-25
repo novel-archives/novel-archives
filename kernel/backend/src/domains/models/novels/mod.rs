@@ -1,2 +1,13 @@
+pub mod body;
+pub mod chapter;
+pub mod novel;
+pub mod order;
+pub mod part;
 pub mod series;
-pub mod work;
+
+use crate::domains::models::prelude::*;
+use body::*;
+use chapter::*;
+use novel::*;
+use order::*;
+use part::*;
