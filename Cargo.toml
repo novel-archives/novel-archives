@@ -3,4 +3,5 @@
 members = [
 	"kernel/backend",
 	"kernel/general",
+	"kernel/macros",
 ]

@@ -2,7 +2,7 @@ use crate::prelude::*;
 use std::marker::PhantomData;
 
 pub type RawId = String;
-pub struct Id<T> {
+pub struct Id<T: ?Sized> {
     raw_id: RawId,
     _phantom: PhantomData<T>,
 }
